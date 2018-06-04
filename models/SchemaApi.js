@@ -14,6 +14,7 @@ const Apis = new Schema({
   host:{type: String},
   path:{type: String},
   query:{type: String},
+  statusCode:{type: Number},
   method:{
       type: String,
       enum:['POST', 'GET'],
@@ -29,7 +30,8 @@ const Apis = new Schema({
  status: {type: String, enum: ['active','deleted','suspended'], required: true},
  alertEmail: {type: Boolean, default: true},
  toEmail: {type: String},
- developer: {type: String}
+ developer: {type: String},
+ Error: {type: String}
 });
 
 Apis.plugin(autoIncrement.plugin, { model: 'Apis', field: '_id', startAt: 0});

@@ -10,20 +10,22 @@ exports.list = (req,res,next)=>{
           res.send('error');
         }
         else{
-        res.json(task);
+        // res.json(task);
         req.task = task;
         next();
         }
       });
     }
 
-  exports.rd = (req, res)=>{
+  exports.rd = (req, res, next)=>{
     Task.findById(req.params.taskId, (err, task)=>{
       if (err){
         res.send(err);
       }
       else{
-      res.json(task);
+      // res.json(task);
+      req.task = task;
+        next();
       }
     });
   };

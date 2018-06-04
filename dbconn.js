@@ -10,5 +10,3 @@ var connection = mongoose.connect('mongodb://localhost/api', function(err) {
   console.log('Connection to databse succesful');
 });
 
-// autoIncrement.initialize(connection);
-

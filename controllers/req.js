@@ -1,27 +1,37 @@
 const mongoose = require('mongoose');
 const Task = require('../models/SchemaApi');
 const request = require('request');
-const async = require('async')
+const async = require('async');
 
 exports.rqt = (req, res, next) => {
+    let mtd=[];
     console.log(req.task.length);
     console.log(req.task[0]._id);
     console.log(req.task[0].host + req.task[0].path + req.task[0].query);
     console.log(req.task[0].post[0].password);
 
     async.each(req.task, (task, cb) => {
-        console.log('===>', task)
-        console.log('->',task.post[0].email)
-        request({
-            method: task.method,
+        if(req.task.method === "POST")
+    {
+         mtd={method: task.method,
             uri: task.host + task.path + task.query,
-            body: JSON.stringify({
+            body:{
                 email: task.post[0].email,
                 password: task.post[0].password,
-            }),
-            timeout: task.timeout,
+            },json:true,
+            timeout: task.timeout, };
+    }
+    else{
+        mtd={method: task.method,
+            uri: task.host + task.path + task.query,
+            timeout: task.timeout, };
+    }
+        console.log('===>', task)
+        console.log('->',task.post[0].email)
+        request(
+            mtd
             // alternatively pass an object containing additional options,
-        }, (error, response, body) => {
+        , (error, response, body) => {
             if (error) {
                  console.error('upload failed:', error, (task.host + task.path + task.query),task._id);
                  task['statusCode'] = 502;
@@ -34,7 +44,6 @@ exports.rqt = (req, res, next) => {
             cb();
         })
     }, (err, data) => {
-        res.send(req.task)
         req.resp= req.task;
         if (!err){
             console.log('//');

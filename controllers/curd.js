@@ -17,15 +17,13 @@ exports.list = (req,res,next)=>{
       });
     }
 
-  exports.rd = (req, res, next)=>{
+  exports.rd = (req, res)=>{
     Task.findById(req.params.taskId, (err, task)=>{
       if (err){
         res.send(err);
       }
       else{
-      // res.json(task);
-      req.task = task;
-        next();
+      res.json(task);
       }
     });
   };
@@ -38,6 +36,7 @@ exports.list = (req,res,next)=>{
                   }
                   else{
                   res.json(task);
+                  // req.crd=task;
                   }
                 });
     };

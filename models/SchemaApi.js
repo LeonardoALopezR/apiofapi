@@ -31,6 +31,7 @@ const Apis = new Schema({
  alertEmail: {type: Boolean, default: true},
  toEmail: {type: String},
  developer: {type: String},
+ IpServer: {type: String},
  Error: {type: String}
 });
 

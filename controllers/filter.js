@@ -21,7 +21,8 @@ exports.filter = (req, res, next) => {
                         description: resp.description,
                         statusCode: resp.statusCode,
                         url: resp.host + resp.path + resp.query,
-                        developer: resp.developer
+                        developer: resp.developer,
+                        IpServer: resp.IpServer ? resp.IpServer:''
                         },json:true
                     },(err,data,body)=>{
                         if(!err)
